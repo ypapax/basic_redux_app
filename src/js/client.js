@@ -1,7 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import { createStore } from "redux";
 
-import Layout from "./components/Layout";
+const reducer = function() {
 
-const app = document.getElementById('app');
-ReactDOM.render(<Layout/>, app);
+}
+
+const store = createStore(reducer, 0); // https://youtu.be/ucd5x3Ka3gw?t=149
+
+store.subscribe(() => {
+    console.log("store changed", store.getState());
+});
+
+store.dispatch({type: "INC", payload: 1})

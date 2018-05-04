@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
 install(){
-	npm i -S redux
+	npm i
+	npm i -S redux babel-core
 }
+
+run(){
+	npm run dev
+}
+
 $@
