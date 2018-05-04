@@ -1,4 +1,4 @@
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
 
 const reducer = function(state, action) {
     if (action.type === "INC") {
@@ -10,7 +10,15 @@ const reducer = function(state, action) {
     return state;
 }
 
-const store = createStore(reducer, 0); // https://youtu.be/ucd5x3Ka3gw?t=149
+// multiple arrows means that each time we return a function.
+// https://stackoverflow.com/a/32787782/1024794
+const logger = (store) => (next) => (action) => {
+    console.log("action fired", action);
+}
+
+const middleware = applyMiddleware(logger);
+
+const store = createStore(reducer, 1, middleware);
 
 store.subscribe(() => {
     console.log("store changed", store.getState());
