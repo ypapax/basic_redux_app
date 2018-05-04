@@ -1,16 +1,20 @@
-import { createStore } from "redux";
+import { createStore, combineReducers } from "redux";
 
-const reducer = function(state, action) {
-    if (action.type === "INC") {
-        return state+action.payload.number;
-    }
-    if (action.type === "DEC") {
-        return state-action.payload.number;
-    }
+const userReducer = (state={}, action) => {
+    return state;
+}
+const tweetsReducer = (state=[], action) => { // state={} is setting default values to parameter in ES6
     return state;
 }
 
-const store = createStore(reducer, 0); // https://youtu.be/ucd5x3Ka3gw?t=149
+const reducers = combineReducers(
+    {
+        user: userReducer,
+        tweets: tweetsReducer
+    }
+)
+
+const store = createStore(reducers);
 
 store.subscribe(() => {
     console.log("store changed", store.getState());
