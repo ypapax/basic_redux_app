@@ -2,7 +2,7 @@
 
 install(){
 	npm i
-	npm i -S redux babel-core
+	npm i -S redux babel-core redux-logger
 }
 
 run(){
