@@ -6,7 +6,7 @@ install(){
 }
 
 run(){
-	npm run dev
+	npm run dev # checkout localhost:8080
 }
 
 $@
