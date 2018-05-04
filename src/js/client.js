@@ -1,13 +1,16 @@
 import { createStore, combineReducers } from "redux";
 
 const userReducer = (state={}, action) => {
+    console.info("action.type", action.type);
     switch (action.type) {
         case "CHANGE_NAME": {
-            state.name = action.payload;
+            // here we copy all the fields from state object
+            // and rewrite name field after it https://youtu.be/gBER4Or86hE?t=394
+            state = {...state, name: action.payload} // 3 dots is spread operator https://stackoverflow.com/a/31049016/1024794
             break;
         }
         case "CHANGE_AGE": {
-            state.age = action.payload;
+            state = {...state, age: action.payload}
             break;
         }
     }
