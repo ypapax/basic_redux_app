@@ -1,11 +1,11 @@
 import { createStore } from "redux";
 
 const reducer = function(state, action) {
-    if (action.command === "INC") {
-        return state+action.payload;
+    if (action.type === "INC") {
+        return state+action.number;
     }
-    if (action.command === "DEC") {
-        return state-action.payload;
+    if (action.type === "DEC") {
+        return state-action.number;
     }
     return state;
 }
@@ -16,8 +16,8 @@ store.subscribe(() => {
     console.log("store changed", store.getState());
 });
 
-store.dispatch({command: "INC", payload: 10})
-store.dispatch({command: "INC", payload: 11})
-store.dispatch({command: "INC", payload: 12})
-store.dispatch({command: "INC", payload: 13})
-store.dispatch({command: "DEC", payload: 112})
+store.dispatch({type: "INC", number: 10})
+store.dispatch({type: "INC", number: 11})
+store.dispatch({type: "INC", number: 12})
+store.dispatch({type: "INC", number: 13})
+store.dispatch({type: "DEC", number: 112})
