@@ -1,6 +1,16 @@
 import { createStore, combineReducers } from "redux";
 
 const userReducer = (state={}, action) => {
+    switch (action.type) {
+        case "CHANGE_NAME": {
+            state.name = action.payload;
+            break;
+        }
+        case "CHANGE_AGE": {
+            state.age = action.payload;
+            break;
+        }
+    }
     return state;
 }
 const tweetsReducer = (state=[], action) => { // state={} is setting default values to parameter in ES6
@@ -20,8 +30,5 @@ store.subscribe(() => {
     console.log("store changed", store.getState());
 });
 
-store.dispatch({type: "INC", payload: {number: 10}})
-store.dispatch({type: "INC", payload: {number: 11}})
-store.dispatch({type: "INC", payload: {number: 12}})
-store.dispatch({type: "INC", payload: {number: 13}})
-store.dispatch({type: "DEC", payload: {number: 112}})
+store.dispatch({type: "CHANGE_NAME", payload: "Will"})
+store.dispatch({type: "CHANGE_AGE", payload: "35"})
