@@ -34,7 +34,7 @@ const reducer = function(state=initialState, action) {
 const middleware = applyMiddleware(thunk, logger);
 const store = createStore(reducer, middleware);
 
-store.dispatch((dispatch) => {
+store.dispatch((dispatch) => { // thunk middleware allows to dispatch a function
     dispatch({type: "FETCH_USERS_START"})
     axios.get("https://jsonplaceholder.typicode.com/users")
         .then((response)=>{
