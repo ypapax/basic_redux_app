@@ -1,6 +1,5 @@
 import {createStore, applyMiddleware} from "redux";
 import logger from "redux-logger";
-import thunk from "redux-thunk";
 import axios from "axios";
 import promise from "redux-promise-middleware";
 
@@ -35,7 +34,7 @@ const reducer = function (state = initialState, action) {
     return state;
 }
 
-const middleware = applyMiddleware(promise(), thunk, logger);
+const middleware = applyMiddleware(promise(), logger);
 const store = createStore(reducer, middleware);
 
 store.dispatch({
