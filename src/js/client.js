@@ -1,7 +1,8 @@
-import { createStore, applyMiddleware } from "redux";
+import {createStore, applyMiddleware} from "redux";
 import logger from "redux-logger";
 import thunk from "redux-thunk";
 import axios from "axios";
+import promise from "redux-promise-middleware";
 
 const initialState = {
     fetching: false,
@@ -10,39 +11,34 @@ const initialState = {
     error: null,
 }
 
-const reducer = function(state=initialState, action) {
+const reducer = function (state = initialState, action) {
     switch (action.type) {
-        case "FETCH_USERS_START": {
+        case "FETCH_USERS_PENDING": {
             return {...state, fetching: true}
             break;
         }
-        case "FETCH_USERS_ERROR": {
+        case "FETCH_USERS_REJECTED": {
             return {...state, fetching: false, error: action.payload}
             break;
         }
-        case "RECEIVE_USERS": {
-            return {...state,
+        case "FETCH_USERS_START_FULFILLED": {
+            console.info("action.payload.data", action.payload.data);
+            return {
+                ...state,
                 fetching: false,
                 fetched: true,
-                users: action.payload}
+                users: action.payload.data
+            }
             break;
         }
     }
     return state;
 }
 
-const middleware = applyMiddleware(thunk, logger);
+const middleware = applyMiddleware(promise(), thunk, logger);
 const store = createStore(reducer, middleware);
 
-store.dispatch((dispatch) => { // thunk middleware allows to dispatch a function
-    dispatch({type: "FETCH_USERS_START"})
-    axios.get("https://jsonplaceholder.typicode.com/users")
-        .then((response)=>{
-            dispatch({type: "RECEIVE_USERS", payload: response.data});
-        })
-        .catch((err)=>{
-            dispatch({type: "FETCH_USERS_ERROR", payload: err});
-        })
-    // do something async
-    dispatch({type: "BAR"})
+store.dispatch({
+    type: "FETCH_USERS_START",
+    payload: axios.get("https://jsonplaceholder.typicode.com/users")
 })

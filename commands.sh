@@ -2,7 +2,7 @@
 
 install(){
 	npm i
-	npm i -S redux babel-core redux-logger redux-thunk axios
+	npm i -S redux babel-core redux-logger redux-thunk axios redux-promise-middleware
 }
 
 run(){
